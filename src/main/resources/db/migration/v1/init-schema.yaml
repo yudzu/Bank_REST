@@ -1,0 +1,130 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: van.stepa
+      changes:
+
+        # === SEQUENCES ===
+        - createSequence:
+            sequenceName: sq_user_id
+            startValue: 1
+        - createSequence:
+            sequenceName: sq_role_id
+            startValue: 1
+        - createSequence:
+            sequenceName: sq_card_id
+            startValue: 1
+
+        # === USERS TABLE ===
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: patronymic
+                  type: VARCHAR(255)
+              - column:
+                  name: mobile_number
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: hash_password
+                  type: VARCHAR(255)
+
+        # === ROLES TABLE ===
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+
+        # === CARDS TABLE ===
+        - createTable:
+            tableName: cards
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: encrypted_number
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: expiration_date
+                  type: DATE
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+              - column:
+                  name: balance
+                  type: NUMERIC(19,2)
+
+        # === CARD USER FK ===
+        - addForeignKeyConstraint:
+            baseTableName: cards
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_cards_user
+
+        # === USER_ROLE TABLE ===
+        - createTable:
+            tableName: user_role
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            tableName: user_role
+            columnNames: user_id, role_id
+            constraintName: pk_user_role
+
+        - addForeignKeyConstraint:
+            baseTableName: user_role
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_userrole_user
+
+        - addForeignKeyConstraint:
+            baseTableName: user_role
+            baseColumnNames: role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            constraintName: fk_userrole_role
