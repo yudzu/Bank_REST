@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: classpath:db/migration/v1/init-schema.yaml
+  - includeAll:
+      path: classpath:db/migration/v2/

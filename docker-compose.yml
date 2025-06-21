@@ -32,6 +32,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/bankcards_db
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
+      - JWT_SECRET=53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
     depends_on:
       postgres:
         condition: service_healthy
