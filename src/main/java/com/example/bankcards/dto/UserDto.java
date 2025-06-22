@@ -1,13 +1,18 @@
 package com.example.bankcards.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
+import java.util.Set;
+
 @Data
-public class UserRegisterRequest {
+@Builder
+public class UserDto {
+    private Long id;
+    private String email;
     private String firstName;
     private String lastName;
     private String patronymic;
-    private String email;
     private String mobileNumber;
-    private String password;
+    private Set<String> roles;
 }
