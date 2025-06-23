@@ -31,3 +31,9 @@ jwt:
 card:
   encryption:
     secretKey: ${CARD_ENCRYPTION_SECRET_KEY}
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

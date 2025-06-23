@@ -44,10 +44,10 @@ public class CardController {
         return ResponseEntity.ok(cardService.getUserCards(authentication.getName(), PageRequest.of(page, size)));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{cardId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<CardDto> getCard(Authentication authentication, @PathVariable Long id) {
-        return ResponseEntity.ok(cardService.getCard(authentication.getName(), id));
+    public ResponseEntity<CardDto> getCard(Authentication authentication, @PathVariable Long cardId) {
+        return ResponseEntity.ok(cardService.getCard(authentication.getName(), cardId));
     }
 
     @PostMapping("/{cardId}/request-block")
