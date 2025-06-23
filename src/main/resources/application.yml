@@ -27,3 +27,7 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   expirationMs: 3600000
+
+card:
+  encryption:
+    secretKey: ${CARD_ENCRYPTION_SECRET_KEY}

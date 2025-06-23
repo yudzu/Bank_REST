@@ -26,16 +26,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/all")
-    public Page<UserDto> getAllUsers(
+    public ResponseEntity<Page<UserDto>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return userService.getAllUsers(PageRequest.of(page, size));
+        return ResponseEntity.ok(userService.getAllUsers(PageRequest.of(page, size)));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDto> getUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(userService.getUserById(userId));
     }
 
     @PostMapping("/create")
@@ -44,9 +44,9 @@ public class UserController {
         return ResponseEntity.ok("User created successfully!");
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
-        userService.deleteUser(id);
+    @DeleteMapping("/{userId}/delete")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
 }
